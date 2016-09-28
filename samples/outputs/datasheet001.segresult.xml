@@ -1,0 +1,310 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!-- 
+    Your output MUST contain the previous line (standard XML header). 
+    Please notice all strings must be UTF8-encoded.
+-->
+<seg_result version="0.2" generated="2014-09-26T18:06:19.167181">
+<!-- 
+    Your output MUST contain the previous line (document start).
+    You SHOULD put a valid date string for the "generated" attribute.
+ -->
+  <software_used name="My program (c) CVC/ULR 2014" version="0.1"/>
+  <!-- 
+    Your output MUST contain the previous line.
+    You can replace the content of the "name" and "version" attributes
+    with whatever describes your program.
+   -->
+  <source_sample_file>background05/datasheet001.mp4</source_sample_file>
+  <!-- 
+    Your output MUST contain the previous line.
+    Your SHOULD replace the file path with the relative path of the input file.
+   -->
+  <segmentation_results>
+  <!-- Your output MUST contain the previous line (segmentation results start). -->
+    <frame index="1" rejected="true"/>
+    <!-- 
+        For each frame in the input sample, your output MUST contain 
+        a "frame" tag, where:
+        - the "index" attribute contains the frame number, starting from 1;
+        - the "rejected" attribute indicates if the frame should be rejected 
+          because no document object was found
+          "true" = reject the frame, no document found
+          "false" = keep the frame
+
+        If an object is found, the coordinates of its corners MUST be provided.
+        See below for an example of such case.
+    -->
+    <frame index="2" rejected="true"/>
+    <frame index="3" rejected="true"/>
+    <frame index="4" rejected="true"/>
+    <frame index="5" rejected="true"/>
+    <frame index="6" rejected="true"/>
+    <frame index="7" rejected="true"/>
+    <frame index="8" rejected="true"/>
+    <frame index="9" rejected="true"/>
+    <frame index="10" rejected="true"/>
+    <!-- This detector was poor, and missed many document objects... -->
+    <frame index="11" rejected="true"/>
+    <frame index="12" rejected="true"/>
+    <frame index="13" rejected="true"/>
+    <frame index="14" rejected="true"/>
+    <frame index="15" rejected="true"/>
+    <frame index="16" rejected="true"/>
+    <frame index="17" rejected="true"/>
+    <frame index="18" rejected="true"/>
+    <frame index="19" rejected="true"/>
+    <frame index="20" rejected="true"/>
+    <frame index="21" rejected="true"/>
+    <frame index="22" rejected="true"/>
+    <frame index="23" rejected="true"/>
+    <frame index="24" rejected="true"/>
+    <frame index="25" rejected="true"/>
+    <frame index="26" rejected="true"/>
+    <frame index="27" rejected="true"/>
+    <frame index="28" rejected="true"/>
+    <frame index="29" rejected="true"/>
+    <frame index="30" rejected="true"/>
+    <frame index="31" rejected="true"/>
+    <frame index="32" rejected="true"/>
+    <frame index="33" rejected="true"/>
+    <frame index="34" rejected="true"/>
+    <frame index="35" rejected="true"/>
+    <frame index="36" rejected="true"/>
+    <frame index="37" rejected="true"/>
+    <frame index="38" rejected="true"/>
+    <frame index="39" rejected="true"/>
+    <frame index="40" rejected="true"/>
+    <frame index="41" rejected="true"/>
+    <frame index="42" rejected="true"/>
+    <frame index="43" rejected="true"/>
+    <frame index="44" rejected="true"/>
+    <frame index="45" rejected="true"/>
+    <frame index="46" rejected="true"/>
+    <frame index="47" rejected="true"/>
+    <frame index="48" rejected="true"/>
+    <frame index="49" rejected="true"/>
+    <frame index="50" rejected="true"/>
+    <frame index="51" rejected="true"/>
+    <frame index="52" rejected="true"/>
+    <frame index="53" rejected="true"/>
+    <frame index="54" rejected="true"/>
+    <frame index="55" rejected="true"/>
+    <!-- many, many misses... -->
+    <frame index="56" rejected="true"/>
+    <frame index="57" rejected="true"/>
+    <frame index="58" rejected="true"/>
+    <frame index="59" rejected="true"/>
+    <frame index="60" rejected="true"/>
+    <frame index="61" rejected="true"/>
+    <frame index="62" rejected="true"/>
+    <frame index="63" rejected="true"/>
+    <frame index="64" rejected="true"/>
+    <frame index="65" rejected="true"/>
+    <frame index="66" rejected="true"/>
+    <frame index="67" rejected="true"/>
+    <frame index="68" rejected="true"/>
+    <frame index="69" rejected="true"/>
+    <frame index="70" rejected="true"/>
+    <frame index="71" rejected="true"/>
+    <frame index="72" rejected="true"/>
+    <frame index="73" rejected="true"/>
+    <frame index="74" rejected="true"/>
+    <frame index="75" rejected="true"/>
+    <frame index="76" rejected="true"/>
+    <frame index="77" rejected="true"/>
+    <frame index="78" rejected="true"/>
+    <frame index="79" rejected="true"/>
+    <frame index="80" rejected="true"/>
+    <frame index="81" rejected="true"/>
+    <frame index="82" rejected="true"/>
+    <frame index="83" rejected="true"/>
+    <frame index="84" rejected="true"/>
+    <frame index="85" rejected="true"/>
+    <frame index="86" rejected="true"/>
+    <frame index="87" rejected="true"/>
+    <frame index="88" rejected="true"/>
+    <frame index="89" rejected="true"/>
+    <frame index="90" rejected="true"/>
+    <frame index="91" rejected="true"/>
+    <frame index="92" rejected="true"/>
+    <frame index="93" rejected="true"/>
+    <frame index="94" rejected="true"/>
+    <frame index="95" rejected="true"/>
+    <frame index="96" rejected="true"/>
+    <frame index="97" rejected="true"/>
+    <frame index="98" rejected="true"/>
+    <frame index="99" rejected="true"/>
+    <frame index="100" rejected="true"/>
+    <frame index="101" rejected="true"/>
+    <frame index="102" rejected="true"/>
+    <frame index="103" rejected="true"/>
+    <frame index="104" rejected="true"/>
+    <frame index="105" rejected="true"/>
+    <!-- 
+        This is how your results would look like if you can
+        read the input video files, but cannot find
+        anything inside the frames.
+     -->
+    <frame index="106" rejected="true"/>
+    <frame index="107" rejected="true"/>
+    <frame index="108" rejected="true"/>
+    <frame index="109" rejected="true"/>
+    <frame index="110" rejected="true"/>
+    <frame index="111" rejected="true"/>
+    <frame index="112" rejected="true"/>
+    <frame index="113" rejected="true"/>
+    <frame index="114" rejected="true"/>
+    <frame index="115" rejected="true"/>
+    <frame index="116" rejected="true"/>
+    <frame index="117" rejected="true"/>
+    <frame index="118" rejected="true"/>
+    <frame index="119" rejected="true"/>
+    <frame index="120" rejected="true"/>
+    <frame index="121" rejected="true"/>
+    <frame index="122" rejected="true"/>
+    <frame index="123" rejected="true"/>
+    <frame index="124" rejected="true"/>
+    <frame index="125" rejected="true"/>
+    <frame index="126" rejected="true"/>
+    <frame index="127" rejected="true"/>
+    <frame index="128" rejected="true"/>
+    <frame index="129" rejected="true"/>
+    <frame index="130" rejected="true"/>
+    <frame index="131" rejected="true"/>
+    <frame index="132" rejected="true"/>
+    <frame index="133" rejected="true"/>
+    <frame index="134" rejected="true"/>
+    <frame index="135" rejected="true"/>
+    <frame index="136" rejected="true"/>
+    <frame index="137" rejected="true"/>
+    <frame index="138" rejected="true"/>
+    <frame index="139" rejected="true"/>
+    <frame index="140" rejected="true"/>
+    <frame index="141" rejected="true"/>
+    <frame index="142" rejected="true"/>
+    <frame index="143" rejected="true"/>
+    <frame index="144" rejected="true"/>
+    <frame index="145" rejected="false">
+    <!-- 
+        This is an example of a frame result were something was found.
+        Each of the four lines below indicates the coordinates of the 
+        corners of the document object.
+
+        Please keep in mind that frame indexes start at 1, and 
+        'rejected="false"' means "I found something!" (sorry for the 
+        double negation).
+
+        "bl" are the coordinates of the bottom left  point of the object
+        "tl" are the coordinates of the top    left  point of the object
+        "tr" are the coordinates of the top    right point of the object
+        "br" are the coordinates of the bottom right point of the object
+
+        The coordinates can be floating point numbers, provided the decimal
+        separator used is the dot ('.').
+        Coordinates are expressed in the frame (image) coordinate system:
+        - origin (0,0) is at the upper left corner of the frame
+        - x values are increasing toward the right of the image
+        - y values are increasing toward the bottom of the image
+        - this is consistent with OpenCV and Numpy image matrix coordinate
+          system.
+     -->
+      <point name="bl" x="1670.56" y="488.49"/>
+      <point name="tl" x="850.595" y="235.039"/>
+      <point name="tr" x="697.47" y="203.237"/>
+      <point name="br" x="776.034" y="220.528"/>
+    </frame>
+    <frame index="146" rejected="true"/>
+    <frame index="147" rejected="true"/>
+    <frame index="148" rejected="true"/>
+    <frame index="149" rejected="true"/>
+    <frame index="150" rejected="true"/>
+    <frame index="151" rejected="true"/>
+    <frame index="152" rejected="true"/>
+    <frame index="153" rejected="true"/>
+    <frame index="154" rejected="true"/>
+    <frame index="155" rejected="true"/>
+    <frame index="156" rejected="true"/>
+    <frame index="157" rejected="true"/>
+    <frame index="158" rejected="true"/>
+    <frame index="159" rejected="true"/>
+    <frame index="160" rejected="true"/>
+    <frame index="161" rejected="true"/>
+    <frame index="162" rejected="true"/>
+    <frame index="163" rejected="true"/>
+    <frame index="164" rejected="true"/>
+    <frame index="165" rejected="true"/>
+    <frame index="166" rejected="true"/>
+    <frame index="167" rejected="true"/>
+    <frame index="168" rejected="true"/>
+    <frame index="169" rejected="true"/>
+    <frame index="170" rejected="true"/>
+    <frame index="171" rejected="true"/>
+    <frame index="172" rejected="true"/>
+    <frame index="173" rejected="true"/>
+    <frame index="174" rejected="true"/>
+    <frame index="175" rejected="true"/>
+    <frame index="176" rejected="true"/>
+    <frame index="177" rejected="true"/>
+    <frame index="178" rejected="true"/>
+    <frame index="179" rejected="true"/>
+    <frame index="180" rejected="true"/>
+    <frame index="181" rejected="true"/>
+    <frame index="182" rejected="true"/>
+    <frame index="183" rejected="true"/>
+    <frame index="184" rejected="false">
+    <!-- 
+        Another example of a frame result indicating the coordinates
+        of some object.
+        The shape seems wrong (points too close), and it would be preferable
+        to reject the frame in this case to avoid a bad segmentation score.
+    -->
+      <point name="bl" x="1388.13" y="169.771"/>
+      <point name="tl" x="1149.34" y="294.47"/>
+      <point name="tr" x="1165.78" y="306.197"/>
+      <point name="br" x="1171.32" y="295.172"/>
+    </frame>
+    <frame index="185" rejected="true"/>
+    <frame index="186" rejected="true"/>
+    <frame index="187" rejected="true"/>
+    <frame index="188" rejected="true"/>
+    <frame index="189" rejected="true"/>
+    <frame index="190" rejected="true"/>
+    <frame index="191" rejected="true"/>
+    <frame index="192" rejected="true"/>
+    <frame index="193" rejected="true"/>
+    <frame index="194" rejected="true"/>
+    <frame index="195" rejected="true"/>
+    <frame index="196" rejected="true"/>
+    <frame index="197" rejected="true"/>
+    <frame index="198" rejected="true"/>
+    <frame index="199" rejected="true"/>
+    <frame index="200" rejected="true"/>
+    <frame index="201" rejected="true"/>
+    <frame index="202" rejected="true"/>
+    <frame index="203" rejected="true"/>
+    <frame index="204" rejected="true"/>
+    <frame index="205" rejected="true"/>
+    <frame index="206" rejected="true"/>
+    <frame index="207" rejected="true"/>
+    <frame index="208" rejected="true"/>
+    <frame index="209" rejected="true"/>
+    <frame index="210" rejected="true"/>
+    <frame index="211" rejected="true"/>
+    <frame index="212" rejected="true"/>
+    <frame index="213" rejected="true"/>
+    <frame index="214" rejected="true"/>
+    <frame index="215" rejected="true"/>
+    <frame index="216" rejected="true"/>
+    <frame index="217" rejected="true"/>
+    <frame index="218" rejected="true"/>
+    <frame index="219" rejected="true"/>
+    <frame index="220" rejected="true"/>
+    <frame index="221" rejected="true"/>
+    <frame index="222" rejected="true"/>
+    <frame index="223" rejected="true"/>
+    <frame index="224" rejected="true"/>
+    <frame index="225" rejected="true"/>
+  </segmentation_results>
+  <!-- Your results MUST include the previous line (segmentation results end). -->
+</seg_result>
+<!-- Your results MUST include the previous line (document end). -->

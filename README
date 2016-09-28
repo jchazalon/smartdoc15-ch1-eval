@@ -1,0 +1,129 @@
+ICDAR'15 SMARTDOC EVALUATION TOOLS FOR CHALLENGE 1
+==================================================
+
+(c) 2015 - Joseph Chazalon <joseph.chazalon@univ-lr.fr>
+         - L3I / University of La Rochelle
+
+This project provides tools for evaluating the performance of page
+outline detection methods in mobile captured document images.
+Those tools were used during the SMARTDOC competition held during
+ICDAR 2015, for the challenge 1 of this competition.
+
+https://sites.google.com/site/icdar15smartdoc/challenge-1
+
+
+Tools provided
+--------------
+The tools provided allow to:
+- compare the ground truth page outline coordinate with some method's
+  output, for a given test sample (video);
+- merge isolated evaluation results to produce a global score;
+- build tabular (CSV) files with results;
+- run a complete evaluation.
+
+Scripts:
+eval_seg.py       : Evaluate segmentation result against GT and produces 
+                    '.evalseg.xml' files
+merge_evalres.py  : Merge segmentation results to produce summaries 
+                    ('.evalsummary.xml' files)
+evalsum_to_csv.py : Extract relevant information from evaluation summaries to 
+                    CSV files (could be merge with 'merge_evalres.py')
+run_eval.sh       : Launch a complete evaluation of a given method against 
+                    provided ground truth.
+viz.py            : Visualization tool (displays a video with segmentation
+                    overlayed).
+
+Folders:
+models/        : Definitions of data models with XML mapping
+utils/         : Utility functions and types (argument parsing, logging, etc.)
+
+
+Installation
+------------
+The tools require the use of Python 2.7+ and several libraries.
+Workspace setup can be greatly simplified by using "virtualenv" and its 
+convenient helper "virtualenvwrapper".
+
+Modern Python installation should provide "pip", the package installation tool 
+for Python. If not, install the "python-pip" package.
+
+To install "virtualenv" and "virtualenvwrapper", use:
+$ pip install virtualenv 
+$ pip install virtualenvwrapper
+
+If necessary, automate the activation of virtualenvwrapper by adding those three 
+lines to your shell startup file (.bashrc, .profile, etc.):
+    export WORKON_HOME=$HOME/.virtualenvs
+    export PROJECT_HOME=$HOME/Devel
+    source /usr/local/bin/virtualenvwrapper.sh
+For Windows and more details, see:
+    https://virtualenvwrapper.readthedocs.org/en/latest/install.html
+
+Then, setup and activate a new virtual environment to prevent changing your 
+global Python setup:
+$ mkvirtualenv smartdoc
+
+You can now install all the required dependencies:
+(smartdoc)$ pip install -r requirements.txt
+
+You're now ready to go.
+You can later re-activate this virtual environment using:
+$ workon smartdoc
+
+
+Alternative installation for Polygon and dexml:
+  Polygon (http://www.j-raedler.de/projects/polygon/)
+      pip install --ignore-installed https://bitbucket.org/jraedler/polygon2/downloads/Polygon2-2.0.6.zip
+
+  dexml
+      pip install --ignore-installed https://github.com/rfk/dexml/archive/master.zip
+
+
+Usage
+-----
+Both scripts have a help option (-h) at the commandline to facilitate their use.
+
+WARNING: do not forget to activate the virtual environment before calling the 
+scripts.
+
+We recommend to first test that one of the scripts works properly, and then to
+use the automation script `run_eval.sh`.
+
+To evaluate the performance of a detection/segmentation method on a single video 
+sample, produce a "SAMPLE.segresult.xml" and use `eval_seg.py`:
+  $ python eval_seg.py PATH/TO/SAMPLE.gt.xml PATH/TO/SAMPLE.segresult.xml -o PATH/TO/OUT/SAMPLE.segeval.xml
+
+To merge several evaluation results and produce a single measure, the simplest 
+thing is to pipe the list of "segeval.xml" files to `merge_evalres.py`:
+  $ find PATH/TO/EVALDIR -name "*.segeval.xml" | python merge_evalres.py -f - -o PATH/TO/METHOD.evalsummary.xml
+
+To generate a CSV summary from results summaries, pipe the list of 
+"evalsummary.xml" files to `evalsum_to_csv.py`:
+  $ find PATH/TO/EVALDIR -name "*.evalsummary.xml" | python evalsum_to_csv.py -f - -o PATH/TO/METHOD.summary.csv
+
+Finally, you can automate the whole workflow using GNU Parallel, and run the 
+script `run_eval.sh` which takes care about calling all the commands in parallel.
+All you have to do is creating the appropriate file hierarchy and redefine the 
+global variables in `run_eval.sh`.
+Please see `run_eval.sh` source for more details.
+
+
+File format specifications
+--------------------------
+
+Please read
+   https://sites.google.com/site/icdar15smartdoc/challenge-1/challenge1-format-specification
+for more information about file format specifications.
+
+
+Other scripts and files
+-----------------------
+
+README:
+    This is this file.
+
+requirements.txt:
+    List of Python dependencies for automated installation.
+
+LICENCE:
+    MIT licence content, which apply to all the files listed above.
