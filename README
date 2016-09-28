@@ -1,8 +1,10 @@
 ICDAR'15 SMARTDOC EVALUATION TOOLS FOR CHALLENGE 1
 ==================================================
 
-(c) 2015 - Joseph Chazalon <joseph.chazalon@univ-lr.fr>
-         - L3I / University of La Rochelle
+(c) 2015 - Joseph Chazalon <joseph(dot)chazalon(at)univ-lr(dot)fr>
+         - L3I / University of La Rochelle, France
+(c) 2015 - Marçal Rusiñol <marcal(at)cvc(dot)uab(dot)cat>
+         - CVC / Universitat Autònoma de Barcelona, Spain
 
 This project provides tools for evaluating the performance of page
 outline detection methods in mobile captured document images.
