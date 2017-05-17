@@ -31,7 +31,6 @@ import numpy as np
 # ==============================================================================
 # mobileSeg Tools suite imports
 from utils.args import *
-from utils.cache import lru_cache
 from utils.log import initLogger
 from utils.io import VideoSeeker
 
