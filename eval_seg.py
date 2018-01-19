@@ -23,7 +23,7 @@ import sys
 from collections import namedtuple
 
 # from pprint import pprint as pp
-import cv,cv2
+import cv2
 import numpy as np
 import Polygon
 import Polygon.Utils
