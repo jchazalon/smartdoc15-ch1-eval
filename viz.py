@@ -23,6 +23,7 @@ import logging
 import argparse
 import os
 import os.path
+import re
 import sys
 
 import cv2
@@ -44,39 +45,68 @@ logger = logging.getLogger(__name__)
 EXITCODE_OK = 0
 EXITCODE_UNKERR = 254
 
+# alternate between these colors when displaying multiple results
+colors = [(28, 26, 228), (184, 126, 55), (74, 175, 77), (163, 78, 152)]
+
+def paths_to_labels(files):
+    """
+    Tries to identify the unique part of the file names.
+    It does so by:
+    - taking the full path of the file
+    - taking the file name and adding iteratively path components
+      by going "up" in the file hierarchy
+    Returns a modified list made of simplied file names.
+    """
+    if len(files) < 2:
+        return [""] # Nothing to display
+
+    parts = [os.path.split(f) for f in files]
+    heads, tails = zip(*parts)
+
+    while sum([len(h) for h in heads]) > 0 \
+      and len(tails) > len(set(tails)):
+        parts = [os.path.split(f) for f in heads]
+        heads, newtails = zip(*parts)
+        tails = [os.path.join(nt, t) for nt, t in zip(newtails, tails)]
+    return tails
 
 class VizController(object):
     CACHE_STEP_SIZE = 10
 
-    def __init__(self, videofile, segfile):
+    def __init__(self, videofile, segfiles):
         self._seektrackbarname = "seek trackbar"
         self._ratiotrackbarname = "ratio trackbar"
         self._videofile = videofile
-        self._segfile = segfile
-        self._winname = "Viz - vid( %s ) seg( %s )" % (os.path.basename(videofile), os.path.basename(segfile))
+        self._segfiles = segfiles
+        self._winname = "Viz - vid( %s ) seg( %s )" % (os.path.basename(videofile), os.path.basename(segfiles[0]))
 
         # Model
         self._seeker = VideoSeeker(videofile)
 
-        self._datamdl = None ## added to seeker
+        self._segres = {}
+        self._datamdl = {} ## added to seeker
             # Subclass of SegResult with segmentation_results in both cases
-        try:
-            self._datamdl = GroundTruth.loadFromFile(segfile)
-        except:
+        labels = paths_to_labels(self._segfiles)
+        print("labels: %r" % labels)
+        for i, segfile in enumerate(self._segfiles):
+            k = labels[i]
             try:
-                self._datamdl = SegResult.loadFromFile(segfile)
+                self._datamdl[k] = GroundTruth.loadFromFile(segfile)
             except:
-                err = "Cannot load '%s', format not supported." % segfile
-                logger.error(err)
-                raise Exception(err)
+                try:
+                    self._datamdl[k] = SegResult.loadFromFile(segfile)
+                except:
+                    err = "Cannot load '%s', format not supported." % segfile
+                    logger.error(err)
+                    raise Exception(err)
 
-        src = self._datamdl.source_sample_file
-        if os.path.splitext(os.path.basename(src))[0] != os.path.splitext(os.path.basename(videofile))[0]:
-            logger.warning("Video file '%s' does not seem to be the sample file '%s' was created from." 
-                                %(videofile, segfile))
-            logger.warning("\texpected sample file is: '%s'" % src)
-
-        self._segres = self._datamdl.segmentation_results
+            src = self._datamdl[k].source_sample_file
+            if os.path.splitext(os.path.basename(src))[0] != os.path.splitext(os.path.basename(videofile))[0]:
+                logger.warning("Video file '%s' does not seem to be the sample file '%s' was created from." 
+                                    %(videofile, segfile))
+                logger.warning("\texpected sample file is: '%s'" % src)
+    
+            self._segres[k] = self._datamdl[k].segmentation_results
 
         # Views
         cv2.namedWindow(self._winname) # auto resize
@@ -156,21 +186,25 @@ class VizController(object):
 
 
     def _overlaySegmentation(self, frame):
-        fres = self._segres[self.current_frameId]
-        if (fres.index - 1) != self.current_frameId: # fres ids start at 1
-            logger.warning("Video @f%04d out of sync with seg @f%04d" % (fres.index, self.current_frameId))
-
-        if fres.rejected:
-            # Simply draw circle
-            (frame_height, frame_width, _depth) = frame.shape
-            cv2.circle(frame, (frame_width/2, frame_height/2), 20, (0, 0, 255), 10)
-        else:
-            # Draw polygon
-            object_shape = np.float32([[fres.points['tl'].x, fres.points['tl'].y],
-                                       [fres.points['bl'].x, fres.points['bl'].y],
-                                       [fres.points['br'].x, fres.points['br'].y],
-                                       [fres.points['tr'].x, fres.points['tr'].y]])
-            cv2.polylines(frame, [np.int32(object_shape)], True, (0, 255, 0), 2)
+        iC = 0
+        for k in self._segres:
+            fres = self._segres[k][self.current_frameId]
+            if (fres.index - 1) != self.current_frameId: # fres ids start at 1
+                logger.warning("Video @f%04d out of sync with seg @f%04d" % (fres.index, self.current_frameId))
+    
+            cv2.putText(frame,k,(10,50+iC*50), cv2.FONT_HERSHEY_SIMPLEX, 1, colors[iC],2,cv2.LINE_AA)
+            if fres.rejected:
+                # Simply draw circle
+                (frame_height, frame_width, _depth) = frame.shape
+                cv2.circle(frame, (frame_width/2+(iC*20), frame_height/2), 20, colors[iC], 10)
+            else:
+                # Draw polygon
+                object_shape = np.float32([[fres.points['tl'].x, fres.points['tl'].y],
+                                           [fres.points['bl'].x, fres.points['bl'].y],
+                                           [fres.points['br'].x, fres.points['br'].y],
+                                           [fres.points['tr'].x, fres.points['tr'].y]])
+                cv2.polylines(frame, [np.int32(object_shape)], True, colors[iC], 2)
+            iC = min(iC + 1, len(colors) - 1)
 
 
     def _onForward(self):
@@ -234,7 +268,7 @@ def main(argv=None):
         description='Visualizer for segmentation result or ground-truth files.')
 
     parser.add_argument('input_video', action=StoreValidFilePath)
-    parser.add_argument('seg_file', action=StoreValidFilePath)
+    parser.add_argument('seg_files', nargs='+', action=StoreValidFilePaths)
 
 
     args = parser.parse_args()
@@ -247,7 +281,7 @@ def main(argv=None):
     # Prepare process
     logger.debug("Starting up")
 
-    app = VizController(args.input_video, args.seg_file)
+    app = VizController(args.input_video, args.seg_files)
 
     # Let's test video processing
     # --------------------------------------------------------------------------
