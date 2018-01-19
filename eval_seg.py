@@ -42,7 +42,7 @@ logger = logging.getLogger(__name__)
 
 # ==============================================================================
 # Constants
-PROG_VERSION = "0.3"
+PROG_VERSION = "0.4"
 PROG_NAME = "Mobile Segmentation Evaluation Tool for Videos"
 XML_VERSION_MIN = 0.2
 XML_VERSION_MAX = 0.3
@@ -315,10 +315,10 @@ def main(argv=None):
         logger.warn("No frame accepted. Full sample precision set to %f" % evalRes_mdl.global_results.detection_precision)
 
     evalRes_mdl.global_results.detection_recall = 0.0
-    if count_retrieved > 0:
-        evalRes_mdl.global_results.detection_recall = float(count_true_accept) / count_retrieved
+    if count_expected > 0:
+        evalRes_mdl.global_results.detection_recall = float(count_true_accept) / count_expected
     else:
-        logger.error("Cannot compute full sample recall if nothing was accepted! Recall set to %f" 
+        logger.error("Cannot compute full sample recall if ground truth contains no accepted frame! Recall set to %f"
             % evalRes_mdl.global_results.detection_recall)
 
     # Precision/recall averaged for frames
