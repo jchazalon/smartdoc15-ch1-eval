@@ -266,13 +266,22 @@ def main(argv=None):
         # Merge evaluation results
         res_agg = merge_res_tuples(res_cur, res_agg)
         # Logging
-        logger.debug("\t %d new frames (total is %d)" % (res_cur.count_total_frames, res_agg.count_total_frames))
-        logger.debug("\t AFTER: mean_segmentation_precision=%f ; mean_segmentation_recall  =%f" 
-            % (res_agg.mean_segmentation_precision, res_agg.mean_segmentation_recall))
-        logger.debug("\t        mean_detection_precision   =%f ; mean_detection_recall     =%f" 
-            % (res_agg.mean_detection_precision, res_agg.mean_detection_recall))
-        logger.debug("\t        mean_jaccard_index_smartdoc=%f ; mean_jaccard_index_segonly=%f" 
-            % (res_agg.mean_jaccard_index_smartdoc, res_agg.mean_jaccard_index_segonly))
+        logger.debug(
+            "\t %d new frames (total is %d)",
+            res_cur.count_total_frames,
+            res_agg.count_total_frames)
+        logger.debug(
+            "\t AFTER: mean_segmentation_precision=%f ; mean_segmentation_recall  =%f",
+            getOrDefault(res_agg.mean_segmentation_precision, 0.0),
+            getOrDefault(res_agg.mean_segmentation_recall, 0.0))
+        logger.debug(
+            "\t        mean_detection_precision   =%f ; mean_detection_recall     =%f",
+            getOrDefault(res_agg.mean_detection_precision, 0.0),
+            getOrDefault(res_agg.mean_detection_recall, 0.0))
+        logger.debug(
+            "\t        mean_jaccard_index_smartdoc=%f ; mean_jaccard_index_segonly=%f",
+            getOrDefault(res_agg.mean_jaccard_index_smartdoc, 0.0),
+            getOrDefault(res_agg.mean_jaccard_index_segonly, 0.0))
         # Stats
         file_count += 1
 
@@ -293,27 +302,27 @@ def main(argv=None):
     logger.debug("Final results")
     logger.debug("------------------------------")
     logger.debug("Segmentation quality:")
-    logger.info("\tmean segmentation precision  = %f" % gr_mdl.mean_segmentation_precision)
-    logger.info("\tmean segmentation recall     = %f" % gr_mdl.mean_segmentation_recall)
+    logger.info("\tmean segmentation precision  = %f", getOrDefault(gr_mdl.mean_segmentation_precision, 0.0))
+    logger.info("\tmean segmentation recall     = %f", getOrDefault(gr_mdl.mean_segmentation_recall, 0.0))
     logger.debug("------------------------------")
     logger.debug("Detection quality:")
-    logger.info("\tmean detection precision = %f" % gr_mdl.detection_precision)
-    logger.info("\tmean detection recall    = %f" % gr_mdl.detection_recall)
+    logger.info("\tmean detection precision = %f", getOrDefault(gr_mdl.detection_precision, 0.0))
+    logger.info("\tmean detection recall    = %f", getOrDefault(gr_mdl.detection_recall, 0.0))
     logger.debug("------------------------------")
     logger.debug("Jaccard index:")
-    logger.info("\tmean ji smartdoc = %f" % gr_mdl.mean_jaccard_index_smartdoc)
-    logger.info("\tmean ji seg only = %f" % gr_mdl.mean_jaccard_index_segonly)
+    logger.info("\tmean ji smartdoc = %f", getOrDefault(gr_mdl.mean_jaccard_index_smartdoc, 0.0))
+    logger.info("\tmean ji seg only = %f", getOrDefault(gr_mdl.mean_jaccard_index_segonly, 0.0))
     logger.debug("------------------------------")
     logger.debug("Frame counts:")
-    logger.info("\ttotal_frames   = %d" % gr_mdl.count_total_frames)
-    logger.info("\ttrue_accepted  = %d" % gr_mdl.count_true_accepted_frames)
-    logger.info("\ttrue_rejected  = %d" % gr_mdl.count_true_rejected_frames)
-    logger.info("\tfalse_accepted = %d" % gr_mdl.count_false_accepted_frames)
-    logger.info("\tfalse_rejected = %d" % gr_mdl.count_false_rejected_frames)
+    logger.info("\ttotal_frames   = %d", gr_mdl.count_total_frames)
+    logger.info("\ttrue_accepted  = %d", gr_mdl.count_true_accepted_frames)
+    logger.info("\ttrue_rejected  = %d", gr_mdl.count_true_rejected_frames)
+    logger.info("\tfalse_accepted = %d", gr_mdl.count_false_accepted_frames)
+    logger.info("\tfalse_rejected = %d", gr_mdl.count_false_rejected_frames)
     logger.debug("- - - - - - - - - - - - - - - ")
     logger.debug("Note:")
-    logger.debug("\texpected  = true_accept + false_reject = %d" % (gr_mdl.count_true_accepted_frames + gr_mdl.count_false_rejected_frames))
-    logger.debug("\tretrieved = true_accept + false_accept = %d" % (gr_mdl.count_true_accepted_frames + gr_mdl.count_false_accepted_frames))
+    logger.debug("\texpected  = true_accept + false_reject = %d", (gr_mdl.count_true_accepted_frames + gr_mdl.count_false_rejected_frames))
+    logger.debug("\tretrieved = true_accept + false_accept = %d", (gr_mdl.count_true_accepted_frames + gr_mdl.count_false_accepted_frames))
     logger.debug("------------------------------")
     logger.debug("")
 
