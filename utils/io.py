@@ -8,7 +8,7 @@ import os.path
 import sys
 import glob
 
-import cv,cv2
+import cv2
 import numpy as np
 
 # ==============================================================================
@@ -81,8 +81,9 @@ class FrameSequenceFromVideo(FrameSequence):
 
         self._videofile = videofile
         self._videocap = cv2.VideoCapture(videofile)
-        self._frame_count = int(self._videocap.get(cv2.cv.CV_CAP_PROP_FRAME_COUNT))
-        self._frame_size = (int(self._videocap.get(cv2.cv.CV_CAP_PROP_FRAME_WIDTH)), int(self._videocap.get(cv2.cv.CV_CAP_PROP_FRAME_HEIGHT)))
+        self._frame_count = int(self._videocap.get(cv2.CAP_PROP_FRAME_COUNT))
+        self._frame_size = (int(self._videocap.get(cv2.CAP_PROP_FRAME_WIDTH)), 
+                            int(self._videocap.get(cv2.CAP_PROP_FRAME_HEIGHT)))
 
         logger.info("Input video informations:")
         logger.info("\tframe_count = %d" % self._frame_count)
@@ -167,10 +168,10 @@ class VideoSeeker(object):
         self._vin = cv2.VideoCapture(videofile)
         self._filename = videofile
         # Video information
-        self._frame_count = int(self._vin.get(cv2.cv.CV_CAP_PROP_FRAME_COUNT))
-        self._frame_size = (int(self._vin.get(cv2.cv.CV_CAP_PROP_FRAME_WIDTH)), 
-                            int(self._vin.get(cv2.cv.CV_CAP_PROP_FRAME_HEIGHT)))
-        self._fps = self._vin.get(cv2.cv.CV_CAP_PROP_FPS)
+        self._frame_count = int(self._vin.get(cv2.CAP_PROP_FRAME_COUNT))
+        self._frame_size = (int(self._vin.get(cv2.CAP_PROP_FRAME_WIDTH)), 
+                            int(self._vin.get(cv2.CAP_PROP_FRAME_HEIGHT)))
+        self._fps = self._vin.get(cv2.CAP_PROP_FPS)
         self._frame_duration = 1000 / self._fps
         self._maxtime = self._frame_duration * self._frame_count
         # debug output
@@ -207,7 +208,7 @@ class VideoSeeker(object):
 
     @property
     def _current_pos(self):
-        return int(self._vin.get(cv2.cv.CV_CAP_PROP_POS_FRAMES))
+        return int(self._vin.get(cv2.CAP_PROP_POS_FRAMES))
     @_current_pos.setter
     def _current_pos(self, value):
         # Seeking by frame id or timestamp seems to be both as slow, and become equally slower at the end of the stream
@@ -232,7 +233,7 @@ class VideoSeeker(object):
             pass
 
     def _rewind(self):
-        if not self._vin.set(cv2.cv.CV_CAP_PROP_POS_FRAMES, 0):
+        if not self._vin.set(cv2.CAP_PROP_POS_FRAMES, 0):
             raise IOError("Error while setting frame id to 0")
 
     def _forwardUntil(self, frame_id):
