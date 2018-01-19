@@ -96,7 +96,7 @@ def main(argv=None):
             version="0.3",
             software_used=Software(
                     name="SegEval",
-                    version="0.3"))
+                    version=PROG_VERSION))
 
     evalRes_mdl.source_files = EvalSourceFiles(
                 groundtruth_file=args.groundtruth_file,
